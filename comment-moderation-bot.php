@@ -11,6 +11,9 @@
  function comment_moderation_bot($comment) {
     // Define your list of disallowed keywords
     $disallowed_keywords = ['spamword1', 'spamword2'];
+    // Maximum number of hyperlinks allowed in a comment
+    $max_links = 0;
+    $comment_content = strtolower($comment['comment_content']);
 
     foreach ($disallowed_keywords as $keyword) {
         // Check if any disallowed keyword is in the comment content
@@ -19,6 +22,12 @@
             wp_die('Comment contains disallowed words');
         }
     }
+
+    // Check number of links
+    $link_count = preg_match_all('/<a\s+href/i', $comment_content);
+    if ($link_count > $max_links) {
+        wp_die('Too many links in comment.');
+    } 
 
     // Return the comment if it passes the checks
     return $comment;
