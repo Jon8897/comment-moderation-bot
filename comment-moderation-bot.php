@@ -10,7 +10,7 @@
 
  function comment_moderation_bot($comment) {
     // Define your list of disallowed keywords
-    $diallowed_keywords = ['spamword1', 'spamword2'];
+    $disallowed_keywords = ['spamword1', 'spamword2'];
 
     foreach ($disallowed_keywords as $keyword) {
         // Check if any disallowed keyword is in the comment content
