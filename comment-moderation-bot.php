@@ -34,11 +34,11 @@
     // Check the time of the user's last comment
     $last_comment_time = get_transient('last_comment_time_'. $comment['comment_author_IP']);
     if($last_comment_time) {
-        wp_die('Your are postin comments to quickly. Slow Down.');
+        wp_die('Your are posting comments to quickly. Slow Down.');
     }
 
     // Save the time of current comment
-    set_transient('lasy_comment_time_'. $comment['comment_author_IP'], current_time('timestamp'), $time_interval);
+    set_transient('last_comment_time_'. $comment['comment_author_IP'], current_time('timestamp'), $time_interval);
 
     // Additional Checks to be added here
 
