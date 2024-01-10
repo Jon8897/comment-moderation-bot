@@ -2,7 +2,7 @@
 /**
  * Plugin Name: My Comment Moderation Bot
  * Description: Custom comment moderation bot for WordPress.
- * Version: 1.0
+ * Version: 1.0.0.1
  * Author: Jonathan Keefe
  */
 
@@ -14,6 +14,8 @@
     // Maximum number of hyperlinks allowed in a comment
     $max_links = 0;
     $comment_content = strtolower($comment['comment_content']);
+    // Time interval in seconds
+    $time_interval = 60;
 
     foreach ($disallowed_keywords as $keyword) {
         // Check if any disallowed keyword is in the comment content
@@ -28,6 +30,17 @@
     if ($link_count > $max_links) {
         wp_die('Too many links in comment.');
     } 
+
+    // Check the time of the user's last comment
+    $last_comment_time = get_transient('last_comment_time_'. $comment['comment_author_IP']);
+    if($last_comment_time) {
+        wp_die('Your are postin comments to quickly. Slow Down.');
+    }
+
+    // Save the time of current comment
+    set_transient('lasy_comment_time_'. $comment['comment_author_IP'], current_time('timestamp'), $time_interval);
+
+    // Additional Checks to be added here
 
     // Return the comment if it passes the checks
     return $comment;
