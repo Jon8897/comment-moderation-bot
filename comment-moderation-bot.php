@@ -9,14 +9,17 @@
  add_filter('preprocess_comment', 'comment_moderation_bot');
 
  function comment_moderation_bot($comment) {
-    // Moderation logic
+    // Define your list of disallowed keywords
     $diallowed_keywords = ['spamword1', 'spamword2'];
 
     foreach ($disallowed_keywords as $keyword) {
-        if (strops(strtolower($comment['comment_content']), strtolower($keyword))!== false) {
+        // Check if any disallowed keyword is in the comment content
+        if (strpos(strtolower($comment['comment_content']), strtolower($keyword))!== false) {
+            // Kill the script and send a message to the user
             wp_die('Comment contains disallowed words');
         }
     }
 
+    // Return the comment if it passes the checks
     return $comment;
  }
