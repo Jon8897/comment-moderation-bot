@@ -1,4 +1,5 @@
 # Comment Moderation Bot for WordPress
+## V1.0.0.1
 
 The Comment Moderation Bot is a WordPress plugin designed to automatically moderate comments based on predefined criteria. This bot helps in managing and filtering comments to maintain a healthy and constructive environment on your WordPress site.
 
